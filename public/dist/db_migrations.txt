@@ -1,0 +1,13 @@
+ALTER TABLE `tproducts` ADD `Priority` INT NOT NULL DEFAULT '10000' AFTER `JustCrm`, ADD INDEX (`Priority`); 
+
+ALTER TABLE `tapp_news` ADD `LinkEnabled` TINYINT NOT NULL DEFAULT '0' AFTER `Priority`, ADD `LinkTitle` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_persian_ci NOT NULL DEFAULT '' AFTER `LinkEnabled`, ADD `BrandID` INT NOT NULL DEFAULT '0' AFTER `LinkTitle`, ADD `CatID` INT NOT NULL DEFAULT '0' AFTER `BrandID`, ADD `ProductCode` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_persian_ci NOT NULL DEFAULT '' AFTER `CatID`;
+
+ALTER TABLE `tnotif_sends` ADD `LinkEnabled` TINYINT NOT NULL DEFAULT '0' AFTER `Image`, ADD `LinkTitle` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_persian_ci NOT NULL DEFAULT '' AFTER `LinkEnabled`, ADD `BrandID` INT NOT NULL DEFAULT '0' AFTER `LinkTitle`, ADD `CatID` INT NOT NULL DEFAULT '0' AFTER `BrandID`, ADD `ProductCode` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_persian_ci NOT NULL DEFAULT '' AFTER `CatID`;
+
+ALTER TABLE `tvisitor_locations` ADD `Type` INT NOT NULL DEFAULT '0' AFTER `Lng`, ADD `OrderID` INT NOT NULL DEFAULT '0' AFTER `Type`, ADD `CallID` INT NOT NULL DEFAULT '0' AFTER `OrderID`, ADD INDEX (`Type`), ADD INDEX (`OrderID`);
+
+ALTER TABLE `tgroups` ADD `OrderTozihat` TINYINT NOT NULL DEFAULT '1' AFTER `PrintTozihat`;
+
+create table tapp_customer_logs
+
+add basket to tapp_logins
