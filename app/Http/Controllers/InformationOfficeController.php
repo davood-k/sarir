@@ -16,7 +16,7 @@ class InformationOfficeController extends Controller
     {
         $tasks = InformationOffice::query('search');
         if ($keyword = request('search')) {
-            $tasks->where('offices', 'like', "%$keyword%")->orWhere('numbers', 'like', "%$keyword%")->orWhere('timeServices', 'like', "%$keyword%")->orWhere('personsRelation', 'like', "%$keyword%")->orWhere('address', 'like', "%$keyword%");
+            $tasks->where('offices', 'like', "%$keyword%")->orWhere('numbers', 'like', "%$keyword%")->orWhere('timeServices', 'like', "%$keyword%")->orWhere('personsRelation', 'like', "%$keyword%")->orWhere('address', 'like', "%$keyword%")->orWhere('post', 'like', "%$keyword%");
         }
 
         $list = $tasks->get();

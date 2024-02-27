@@ -2,7 +2,17 @@
     <!-- Brand Logo -->
     <a href="/login" class="brand-link">
         <img src="" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light mr-5">ورود</span>
+        <span style="font-size: 16px;" class="brand-text text-color text-color-red font-weight-light mr-1">
+            @if (auth()->user())
+                <p class="text-success mr-2">
+                    آقای {{ auth()->user()->name }} خوش آمدید
+                </p>
+            @else
+                <p style="font-size: 22px;" class="text-primary mr-5">
+                    ورود
+                </p>
+            @endif
+        </span>
     </a>
 
     <!-- Sidebar -->
@@ -16,7 +26,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                       with font-awesome or any other icon font library -->
 
-                    @can('add-user')
+                    @can('add-users')
                         <li class="nav-item has-treeview {{ isActive(['importexcel', 'insert'], 'menu-open') }}">
                             <a href="" class="nav-link {{ isActive(['importexcel', 'insert']) }}">
                                 <i class="nav-icon fa fa-dashboard"></i>
@@ -26,32 +36,45 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                {{-- <li class="nav-item">
+                                @can('importpromotion')
+                                <li class="nav-item">
                                     <a href="{{ route('importexcel') }}" class="nav-link {{ isActive('importexcel') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>افزودن نیرو از اکسل</p>
+                                        <p>افزودن نیرو درلیست ارتقاء</p>
                                     </a>
-                                </li> --}}
+                                </li>
+                                @endcan
+                                @can('add-user')
                                 <li class="nav-item">
                                     <a href="{{ route('insert') }}" class="nav-link {{ isActive('insert') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>افزودن نیرو فردی</p>
                                     </a>
                                 </li>
+                                @endcan
                             </ul>
                         </li>
                     @endcan
                     @can('show-page')
                         <li
-                            class="nav-item has-treeview {{ isActive(['amaken', 'tablighat', 'basij', 'hamkar'], 'menu-open') }}">
-                            <a href="" class="nav-link {{ isActive(['amaken', 'tablighat', 'basij', 'hamkar']) }}">
+                            class="nav-item has-treeview {{ isActive(['all', 'amaken', 'tablighat', 'basij', 'hamkar', 'others'], 'menu-open') }}">
+                            <a href=""
+                                class="nav-link {{ isActive(['all', 'amaken', 'tablighat', 'basij', 'hamkar', 'others']) }}">
                                 <i class="nav-icon fa fa-tree"></i>
                                 <p>
-                                    لیست کلی
+                                    مدیریت نیروها
                                     <i class="fa fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @can('promotionUsers')
+                                <li class="nav-item">
+                                    <a href="{{ route('all') }}" class="nav-link {{ isActive('all') }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست کلی ارتقاء</p>
+                                    </a>
+                                </li>
+                                @endcan
                                 <li class="nav-item">
                                     <a href="{{ route('amaken') }}" class="nav-link {{ isActive('amaken') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
@@ -76,12 +99,18 @@
                                         <p>همکاران</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('others') }}" class="nav-link {{ isActive('others') }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>سایر</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li
-                            class="nav-item has-treeview {{ isActive(['azmoon', 'taeedeazmoon', 'printazmoon', 'infolderpr'], 'menu-open') }}">
+                            class="nav-item has-treeview {{ isActive(['azmoon', 'taeedeazmoon', 'printazmoon', 'infolderpr', 'readyInvitation'], 'menu-open') }}">
                             <a href="#"
-                                class="nav-link {{ isActive(['azmoon', 'taeedeazmoon', 'printazmoon', 'infolderpr']) }}">
+                                class="nav-link {{ isActive(['azmoon', 'taeedeazmoon', 'printazmoon', 'infolderpr', 'readyInvitation']) }}">
                                 <i class="nav-icon fa fa-edit"></i>
                                 <p>
                                     آزمون
@@ -98,6 +127,15 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('taeedeazmoon') }}" class="nav-link {{ isActive('taeedeazmoon') }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>
+                                            تائید آزمون
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('readyInvitation') }}"
+                                        class="nav-link {{ isActive('readyInvitation') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>
                                             آماده دعوت
@@ -119,8 +157,8 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview {{ isActive(['comision', 'bayegani'], 'menu-open') }}">
-                            <a href="" class="nav-link {{ isActive(['comision', 'bayegani']) }}">
+                        <li class="nav-item has-treeview {{ isActive(['comision', 'bayegani', 'issuanceOrders'], 'menu-open') }}">
+                            <a href="" class="nav-link {{ isActive(['comision', 'bayegani', 'issuanceOrders']) }}">
                                 <i class="nav-icon fa fa-table"></i>
                                 <p>
                                     کمیسیون
@@ -131,7 +169,13 @@
                                 <li class="nav-item">
                                     <a href="{{ route('comision') }}" class="nav-link {{ isActive('comision') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>در مرحله کمیسون</p>
+                                        <p>مصاحبه</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('issuanceOrders') }}" class="nav-link {{ isActive('issuanceOrders') }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>صدور احکام</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -144,8 +188,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview {{ isActive(['khorooj', 'pagestring', 'duty.index'], 'menu-open') }}">
-                            <a href="" class="nav-link {{ isActive(['khorooj', 'pagestring', 'duty.index']) }}">
+                        <li class="nav-item has-treeview {{ isActive(['duty.index'], 'menu-open') }}">
+                            <a href="" class="nav-link {{ isActive(['duty.index']) }}">
                                 <i class="nav-icon fa fa-edit"></i>
                                 <p>
                                     پنل 1
@@ -153,25 +197,41 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+
+
                                 <li class="nav-item">
-                                    <a href="{{ route('pagestring') }}" class="nav-link {{ isActive('pagestring') }}">
+                                    <a href="{{ route('duty.index') }}" class="nav-link {{ isActive('duty.index') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>
-                                            توضیحات
+                                            وظایف
                                         </p>
                                     </a>
                                 </li>
-                                @can('show-page')
-                                    <li class="nav-item">
-                                        <a href="{{ route('duty.index') }}" class="nav-link {{ isActive('duty.index') }}">
-                                            <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>
-                                                وظایف
-                                            </p>
-                                        </a>
-                                    </li>
-                                @endcan
 
+
+
+                            </ul>
+                        </li>
+                    @endcan
+                    <li
+                        class="nav-item has-treeview {{ isActive(['information', '/', 'informationOffice.index', 'pagestring', 'khorooj'], 'menu-open') }}">
+                        <a href=""
+                            class="nav-link {{ isActive(['information', '/', 'informationOffice.index', 'pagestring', 'khorooj']) }}">
+                            <i class="nav-icon fa fa-table"></i>
+                            <p>
+                                اطلاع رسانی خدام
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            
+                            @can('show-page')
+                                {{-- <li class="nav-item">
+                                    <a href="{{ route('information') }}" class="nav-link {{ isActive('information') }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>قوانین و مقررات</p>
+                                    </a>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="{{ route('khorooj') }}" class="nav-link {{ isActive('khorooj') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
@@ -180,24 +240,7 @@
                                         </p>
                                     </a>
                                 </li>
-                            </ul>
-                        </li>
-                    @endcan
-                    <li class="nav-item has-treeview {{ isActive(['information', '/', 'informationOffice.index'], 'menu-open') }}">
-                        <a href="" class="nav-link {{ isActive(['information', '/', 'informationOffice.index']) }}">
-                            <i class="nav-icon fa fa-table"></i>
-                            <p>
-                                اطلاع رسانی خدام
-                                <i class="fa fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('information') }}" class="nav-link {{ isActive('information') }}">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>قوانین و مقررات</p>
-                                </a>
-                            </li>
+                            @endcan
                             <li class="nav-item">
                                 <a href="{{ route('/') }}" class="nav-link {{ isActive('/') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
@@ -205,10 +248,19 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('informationOffice.index') }}" class="nav-link {{ isActive('informationOffice.index') }}">
+                                <a href="{{ route('informationOffice.index') }}"
+                                    class="nav-link {{ isActive('informationOffice.index') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>
                                         محل های خدمتی
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('pagestring') }}" class="nav-link {{ isActive('pagestring') }}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>
+                                        توضیحات
                                     </p>
                                 </a>
                             </li>

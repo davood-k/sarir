@@ -11,11 +11,11 @@
 
                 <label for="sTemplate">قالب متن</label>
                 <select class="w-75 mr-4 form-control" id="sTemplate" oninput="Calc();">
+                    <option value="5">تشرف حسب نامه {sh} - {date}</option>
                     <option value="1">حسب نامه {sh} - {date} معرفی از {note}</option>
                     <option value="2">حسب نامه {sh} - {date} رکود تا {note} (مرخصی بارداری)</option>
                     <option value="3">حسب نامه {sh} - {date} رکود تا {note} (مرخصی پزشکی)</option>
                     <option value="4">حسب نامه {sh} - {date} تشرف مجدد</option>
-                    <option value="5">تشرف حسب نامه {sh} - {date}</option>
                     <option value="6">حسب نامه {sh} - {date} خاتمه خدمت</option>
                     <option value="7">حسب نامه {sh} - {date} سابقه خدمت لحاظ شده در سامانه یگان امنیت از تاریخ {note} -
                         پس از مراحل جذب {mahal}</option>

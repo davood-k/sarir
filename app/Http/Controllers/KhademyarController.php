@@ -28,16 +28,12 @@ class KhademyarController extends Controller
     /**
      * Import data excel to database
      */
-    public function saveImport(Request $request, Khadem $khadems)
+    public function Importkhademyar(Request $request, Khadem $khadems)
     {
         Excel::import(new KhademyarsImport, $request->file);
         return back();
     }
 
-    public function importexl()
-    {
-        return view('admin/input');
-    }
     public function export(Request $request)
     {
 

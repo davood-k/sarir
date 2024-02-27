@@ -15,9 +15,8 @@
 
                         {{ __(' خوش آمدید') }}
                         </br>
-                        <a href="/" class="m-5">معرفی نامه</a>
+                        <a href="/" class="mt-5" style="font-size: 25px;">لیست نامه های معرفی</a>
                     </br>
-                        <a href="/all" class="m-5">لیست ارتقاء</a>
                     </div>
                 </div>
             </div>

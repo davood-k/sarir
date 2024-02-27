@@ -96,7 +96,7 @@
 
     .imagehead {
         margin-top: 5px;
-        height: 210px;
+        height: 220px;
         width: 70%;
         position: relative;
     }
@@ -119,6 +119,9 @@
 
     .sighnings {
         line-height: 2.2;
+    }
+    .sighningses {
+        line-height: 2.7;
     }
 
     .copytexts {

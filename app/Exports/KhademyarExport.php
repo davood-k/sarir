@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use App\Khademyar;
-use App\Defination;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -28,10 +27,10 @@ class KhademyarExport implements FromQuery, WithMapping, WithHeadings
             'کدملی',
             'نام',
             'فامیل',
+            'توضیحات',
+            'محل خدمت',
             'شماره نامه',
             'تاریخ نامه',
-            'ملاحظات',
-            'محل خدمت',
             'معاونت',
         ];
     }
@@ -42,12 +41,11 @@ class KhademyarExport implements FromQuery, WithMapping, WithHeadings
                 $data->codemelli,
                 $data->fname,
                 $data->lname,
-                $data->sh_letter,
-                $data->date_letter,
                 $data->tozih,
                 $data->moarefi,
+                $data->sh_letter,
+                $data->date_letter,
                 $data->moavenat,
-                // $data->definations()->pluck('moavenat')->implode(', '),
             ];
         
     }

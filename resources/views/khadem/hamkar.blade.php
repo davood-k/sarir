@@ -31,20 +31,25 @@
                         <th>کدملی</th>
                         <th>محل خدمت</th>
                         <th>تاریخ شروع</th>
+                        <th>شماره همراه</th>
                         <th>اقدامات</th>
                     </tr>
                     @foreach ($hamkar as $user)
                         <tr>
-                            <td>{{ $user->namesr }} - {{ $user->familysr }}</td>
+                            <td>
+                                <a class="btn btn-sm ml-2" href="{{ url('/person/show', $user->id) }}">
+                                    <i class="fa fa-edit fa-edit-square"></i>
+                                </a>
+                                {{ $user->namesr }} - {{ $user->familysr }}
+                            </td>
                             <td>{{ $user->codemsr }}</td>
                             <td>{{ $user->bkhademyarsr }}</td>
                             <td>{{ $user->dateshsr }}</td>
+                            <td>{{ $user->mobilesr }}</td>
                             <td class="d-flex">
 
                                 <a class="btn btn-sm btn-info ml-2" href="{{ url('/person/show', $user->id) }}">مشاهده
                                     جزئیات</a>
-                                <a class="btn btn-sm btn-warning ml-2" href="{{ url('/person/create', $user->id) }}">ویرایش
-                                    خادمیار</a>
                                 {{-- <form action="delete/{{$user->id}}" method="post">
                             @csrf
                             @method('DELETE')
@@ -52,12 +57,13 @@
                                حذف
                            </button>
                        </form>  --}}
-                                <form method="post" action="azmoon/{{ $user->id }}">
-                                    @csrf
-                                    @method('put')
-                                    <button class="btn btn-sm btn-info">انتقال به آزمون</button>
-                                </form>
-
+                                @if ($user->sherkatDarAzsr == 0)
+                                    <form method="post" action="azmoon/{{ $user->id }}">
+                                        @csrf
+                                        @method('put')
+                                        <button class="btn btn-sm btn-primary">انتقال به آزمون</button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

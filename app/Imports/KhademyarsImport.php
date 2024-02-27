@@ -16,18 +16,20 @@ class KhademyarsImport implements ToCollection, WithHeadingRow
             $mydata = ['codemelli' => $this->codem(trim($row['codemelli']))];
 
             if (Khademyar::where('codemelli', $mydata)->exists()) {
-                
-                $extkhademyar = Khademyar::where('codemelli', $this->codem(trim($row['codemelli'])))->first();
-                Khademyar::where('codemelli', $this->codem(trim($row['codemelli'])))->first()->definations()->create([
-                    'user_id' => '4',
-                    'khademyar_id ' => $extkhademyar,
-                    'sh_letter' => $this->ReplacePersianNumber(trim($row['shletter'])),
-                    'date_letter' => $this->ReplacePersianNumber(trim($row['dateletter'])),
-                    'moarefi' => trim($row['moarefi']),
-                    'moavenat' => $this->replacemoavenat(trim($row['moarefi'])),
-                    'tozih' => $row['tozih'],
-                ]);
-            } else {
+                if (Khademyar::where('codemelli', $mydata)->first()->definations()->orderBy('sh_letter', 'desc')->where('deleted' , '0')->value('moarefi') != trim($row['moarefi'])) {
+                    $extkhademyar = Khademyar::where('codemelli', $this->codem(trim($row['codemelli'])))->first();
+                    Khademyar::where('codemelli', $this->codem(trim($row['codemelli'])))->first()->definations()->create([
+                        'user_id' => '4',
+                        'khademyar_id ' => $extkhademyar,
+                        'sh_letter' => $this->ReplacePersianNumber(trim($row['shletter'])),
+                        'date_letter' => $this->ReplacePersianNumber(trim($row['dateletter'])),
+                        'moarefi' => trim($row['moarefi']),
+                        'moavenat' => $this->replacemoavenat(trim($row['moarefi'])),
+                        'tozih' => $row['tozih'],
+                    ]);
+                }
+            } 
+            else {
                 $Khademyar = Khademyar::create([
                     'codemelli' => $this->codem(trim($row['codemelli'])),
                     'fname' => trim($row['fname']),
@@ -36,7 +38,7 @@ class KhademyarsImport implements ToCollection, WithHeadingRow
                 ]);
 
                 $Khademyar->definations()->create([
-                    'user_id' => '4',
+                    'user_id' => auth()->user()->id,
                     'khademyar_id ' => $Khademyar->id,
                     'sh_letter' => $this->ReplacePersianNumber(trim($row['shletter'])),
                     'date_letter' => $this->ReplacePersianNumber(trim($row['dateletter'])),
@@ -48,7 +50,7 @@ class KhademyarsImport implements ToCollection, WithHeadingRow
             }
         }
     }
-    // public $codes ='0';
+    public $codes = '0';
     public function codem($intcod)
     {
         while (strlen($intcod) < 10)
@@ -85,6 +87,7 @@ class KhademyarsImport implements ToCollection, WithHeadingRow
             || $var === 'انتظامات رواق ها (گروه ویژه)'
             || $var === 'انتظامات حریم'
             || $var === 'انتظامات صحن ها'
+            || $var === 'شمیم رضوان'
             || $var === 'تشریفات آئین ها و مناسبت ها'
             || $var === 'تشریفات آیین ها و مناسبت ها'
         ) {
@@ -95,6 +98,7 @@ class KhademyarsImport implements ToCollection, WithHeadingRow
             || $var === 'آرایشگر'
             || $var === 'نظارت بر خدمات نظافت'
             || $var === 'گل آرائی'
+            || $var === 'گل آرایی'
             || $var === 'نظارت فرش'
             || $var === 'صندلی چرخدار'
             || $var === 'پیداشدگان'
@@ -163,7 +167,7 @@ class KhademyarsImport implements ToCollection, WithHeadingRow
         } elseif ($var === 'حراست') {
             return ('حراست');
         } else {
-            return ('');
+            return ('نامشخص');
         }
     }
 

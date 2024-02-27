@@ -7,9 +7,17 @@
 
             <div class="row card-tools">
 
-                <form action="">
-
+                <form class="d-flex" action="">
+                    @can("add-user")
+                    <a href="/insert" class="m-1">
+                        <img src="/dist/img/iconsperson.png" alt="">
+                    </a>
+                    @endcan
+                    <a href="/" class="btn btn-default btn-default-sm ml-2">
+                        <i class="fa fa-refresh" area-hidden= "true"></i>
+                    </a>
                     <div class="input-group input-group-sm ml-3" style="width: 150px;">
+                        
                         <input type="text" id="search" name="search" class="form-control float-right"
                             placeholder="جستجو" value="{{ request('search') }}">
 
@@ -31,8 +39,8 @@
                         <th>نام خانوادگی</th>
                         <th>کدملی</th>
                         <th>معرفی نامه از</th>
-                        <th>ملاحظات</th>
-                        <th>ثبات</th>
+                        <th style="width: 15%;">ملاحظات</th>
+                        <th>ثبت کننده</th>
                         <th>اقدامات</th>
                     </tr>
 
@@ -56,7 +64,7 @@
 
                             <td>
                                 @foreach ($khadem as $item)
-                                    {{ 'حسب نامه ' . $item->sh_letter . ' - ' . $item->date_letter . ' معرفی از  ' . $item->moarefi }}</br>
+                                    {{ 'نامه ' . $item->sh_letter . ' - ' . $item->date_letter . ' || ' . $item->moarefi }}</br>
                                 @endforeach
                             </td>
                             <td>

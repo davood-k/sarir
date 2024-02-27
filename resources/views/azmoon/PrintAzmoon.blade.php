@@ -3,84 +3,71 @@
 @section('mohtava')
     <style>
         @font-face {
-            font-family: "IsranNastaliq";
-            src: url("dist/fonts/Vazir.ttf");
+            font-family: "BLotus";
+            src: url("../fonts/BLotus.ttf");
         }
     </style>
     <div class="card">
-        {{-- <div class="card-header">
-            <h3 class="card-title text-danger">لیست کلی افراد دعوت شده به شورای جذب، جهت ارتقاءبه خدمه تشرفی</h3>
-
-            <div class="row card-tools">
-
-                <form action="">
-
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" id="search" name="search" class="form-control float-right"
-                            placeholder="جستجو" value="{{ request('search') }}">
-
-                        <div class="input-group-append ">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-        </div> --}}
-        <!-- /.card-header -->
         <div class="card-body table-responsive p-0" id="printTable" style="direction: rtl;">
-            <div class="text-center p-2 titles">لیست کلی افراد دعوت شده به شورای جذب، جهت ارتقاء به خدمه تشرفی - کمیسیون
-                شماره 12 - (1402/06/27)</div>
+            <div class="text-center p-2 titles">
+                <h4>
+                    لیست کلی افراد دعوت شده به شورای جذب، جهت ارتقاء به خدمه تشرفی - کمیسیون
+                    شماره 16 - (1402/10/28)
+                </h4>
+            </div>
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th style="width: 20%;">محل خدمت</th>
-                        <th style="width: 20%;">نام و نام خانوادگی</th>
+                        <th style="width: 12%;">محل خدمت</th>
+                        <th style="width: 10%;">نام</th>
+                        <th style="width: 10%;">نام خانوادگی</th>
                         <th>شروع خدمت</th>
                         <th>تاریخ تولد</th>
-                        <th style="width: 11%;">مدرک تحصیلی</th>
-                        <th>انضباط</th>
-                        <th>کیفی</th>
-                        <th>شغل</th>
-                        <th>ایثارگری</th>
+                        <th style="width: 7%;">مدرک تحصیلی</th>
+                        <th style="width: 5%;">حضور و غیاب </th>
+                        <th style="width: 5%;">جنبه های کیفی</th>
+                        <th style="width: 9%;">شغل</th>
+                        <th>سوابق ایثارگری</th>
                         <th>امتیاز</th>
                         <th style="width: 20%;">نتیجه مصاحبه</th>
                     </tr>
                     @foreach ($khadem as $user)
                         @if ($user->moavenat === 'اماکن')
                             <tr>
-                                <td>اماکن - {{ $user->bkhademyarsr }}</td>
-                                <td>{{ $user->namesr }} - {{ $user->familysr }}</td>
-                                <td>{{ $user->dateshsr }}</td>
-                                <td style="font-family:iransance">{{ $user->tdatesr }}</td>
-                                <td>{{ $user->madraksr }}</td>
-                                <td>{{ $user->enzebatsr }}</td>
-                                <td>{{ $user->keifisr }}</td>
+                                <td class="fontsBLotussm">اماکن - {{ $user->bkhademyarsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->namesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->familysr }}</td>
+                                <td class="fontsBLotussm">{{ $user->dateshsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tdatesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->madraksr }}</td>
+                                <td class="fontsBLotussm">{{ $user->enzebatsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->keifisr }}</td>
                                 @foreach ($khadems = $user->azmoons as $item)
-                                    <td>{{ $item->job }}</td>
+                                    <td class="fontsBLotussm">{{ $item->job }}</td>
                                 @endforeach
-                                <td>{{ $user->isarsr }}</td>
-                                <td>{{ $user->tajmi }}</td>
-                                <td class="d-flex"></td>
+                                <td class="fontsBLotussm">{{ $user->isarsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tajmi }}</td>
+                                <td class="d-flex fontsBLotussm"></td>
                             </tr>
                         @endif
                     @endforeach
                     @foreach ($khadem as $user)
                         @if ($user->moavenat === 'تبلیغات')
                             <tr>
-                                <td>تبلیغات - {{ $user->bkhademyarsr }}</td>
-                                <td>{{ $user->namesr }} - {{ $user->familysr }}</td>
-                                <td>{{ $user->dateshsr }}</td>
-                                <td>{{ $user->tdatesr }}</td>
-                                <td>{{ $user->madraksr }}</td>
-                                <td>{{ $user->enzebatsr }}</td>
-                                <td>{{ $user->keifisr }}</td>
+                                <td class="fontsBLotussm">تبلیغات - {{ $user->bkhademyarsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->namesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->familysr }}</td>
+                                <td class="fontsBLotussm">{{ $user->dateshsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tdatesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->madraksr }}</td>
+                                <td class="fontsBLotussm">{{ $user->enzebatsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->keifisr }}</td>
                                 @foreach ($khadems = $user->azmoons as $item)
-                                    <td>{{ $item->job }}</td>
+                                    <td class="fontsBLotussm">{{ $item->job }}</td>
                                 @endforeach
-                                <td>{{ $user->isarsr }}</td>
-                                <td>{{ $user->tajmi }}</td>
-                                <td class="d-flex"></td>
+                                <td class="fontsBLotussm">{{ $user->isarsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tajmi }}</td>
+                                <td class="d-flex fontsBLotussm"></td>
                             </tr>
                         @endif
                     @endforeach
@@ -88,18 +75,39 @@
                         @if ($user->moavenat === 'امنیت')
                             <tr>
                                 <td>امنیت - {{ $user->bkhademyarsr }}</td>
-                                <td>{{ $user->namesr }} - {{ $user->familysr }}</td>
-                                <td>{{ $user->dateshsr }}</td>
-                                <td>{{ $user->tdatesr }}</td>
-                                <td>{{ $user->madraksr }}</td>
-                                <td>{{ $user->enzebatsr }}</td>
-                                <td>{{ $user->keifisr }}</td>
+                                <td class="fontsBLotussm">{{ $user->namesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->familysr }}</td>
+                                <td class="fontsBLotussm">{{ $user->dateshsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tdatesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->madraksr }}</td>
+                                <td class="fontsBLotussm">{{ $user->enzebatsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->keifisr }}</td>
                                 @foreach ($khadems = $user->azmoons as $item)
-                                    <td>{{ $item->job }}</td>
+                                    <td class="fontsBLotussm">{{ $item->job }}</td>
                                 @endforeach
-                                <td>{{ $user->isarsr }}</td>
-                                <td>{{ $user->tajmi }}</td>
-                                <td class="d-flex"></td>
+                                <td class="fontsBLotussm">{{ $user->isarsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tajmi }}</td>
+                                <td class="d-flex fontsBLotussm"></td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    @foreach ($khadem as $user)
+                        @if ($user->moavenat === 'همکاران')
+                            <tr>
+                                <td class="fontsBLotussm">کارمند</td>
+                                <td class="fontsBLotussm">{{ $user->namesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->familysr }}</td>
+                                <td class="fontsBLotussm">{{ $user->dateshsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tdatesr }}</td>
+                                <td class="fontsBLotussm">{{ $user->madraksr }}</td>
+                                <td class="fontsBLotussm">{{ $user->enzebatsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->keifisr }}</td>
+                                @foreach ($khadems = $user->azmoons as $item)
+                                    <td class="fontsBLotussm">{{ $item->job }}</td>
+                                @endforeach
+                                <td class="fontsBLotussm">{{ $user->isarsr }}</td>
+                                <td class="fontsBLotussm">{{ $user->tajmi }}</td>
+                                <td class="d-flex fontsBLotussm"></td>
                             </tr>
                         @endif
                     @endforeach
@@ -117,19 +125,23 @@
     </div>
     <script>
         function printData() {
+
             var divToPrint = document.getElementById("printTable");
+
             var htmlToPrint = '' + '<style type="text/css">' +
-                '@font-face { font-family: "IsranNastaliq" src: url("dist/fonts/Vazir.ttf")}' +
                 '.titles, table th, table td {' +
                 'border: 1px solid #ccc;' +
-                'padding: 0.2em;' +
-                'font-family: IsranNastaliq;' +
+                'padding: 0.1em;' +
+                'font-family: B Lotus;' +
+                'font-size: 14px;' +
                 'text-align: center;' +
                 '}' +
                 '</style>';
+
             htmlToPrint += divToPrint.outerHTML;
             newWin = window.open("");
-            newWin.document.write(htmlToPrint);
+            newWin.document.write(
+                htmlToPrint);
             newWin.print();
             newWin.close();
         }

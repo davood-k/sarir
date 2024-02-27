@@ -21,10 +21,10 @@ Route::get('/b', function () {
     auth()->loginUsingId(2);
 });
 Route::get('/v', function () {
-    $user = Role::find('1');
-    return $user->permissions()->get();
+    // $user = Role::find('1');
+    // return $user->permissions()->get();
 
-    // auth()->loginUsingId(2);
+    auth()->loginUsingId(6);
     // dd (Gate::allows('delete-person' , $user));
 });
 
@@ -46,19 +46,22 @@ Route::get('/a', function () {
 
 Route::middleware(['auth', 'auth.admin'])->group(function () {
 
-    Route::get('/all', 'KhademController@index')->name('index');
+    Route::get('/all', 'KhademController@index')->name('all');
     Route::get('/amaken', 'KhademController@amaken')->name('amaken');
     Route::get('/hamkar', 'KhademController@hamkar')->name('hamkar');
     Route::get('/tablighat', 'KhademController@tablighat')->name('tablighat');
     Route::get('/basij', 'KhademController@basij')->name('basij');
+    Route::get('/others', 'KhademController@elmi')->name('others');
 
     Route::get('/person/show/{id}', 'KhademController@show');
-    Route::get('/person/create/{id}', 'KhademController@edit');
-    Route::post('/person/{id}/update/', 'KhademController@update');
+    Route::get('/person/edit/{id}', 'KhademController@edit');
+    Route::post('/sendperson/edit/{id}', 'KhademController@sendtoissuance');
+    Route::get('/persons/{id}/update/{field}/{value}', 'KhademController@update');
     // کنترلر نمره آزمون
-
     Route::get('/azmoon', 'AzmoonController@index')->name('azmoon');
     Route::get('/taeedeazmoon', 'AzmoonController@taeedsh')->name('taeedeazmoon');
+    Route::put('/azmoonready/{id}', 'AzmoonController@ready')->name('ready');
+    Route::get('/readyInvitation', 'AzmoonController@readyInvitation')->name('readyInvitation');
     Route::get('/printazmoon', 'AzmoonController@print')->name('printazmoon');
     Route::get('/infolderpr', 'AzmoonController@infolderpr')->name('infolderpr');
     Route::get('/azmoons/store', 'AzmoonController@bayegan');
@@ -68,11 +71,16 @@ Route::middleware(['auth', 'auth.admin'])->group(function () {
 
     Route::get('khorooj', 'KhademyarController@index')->name('khorooj');
     Route::post('khorooji', 'KhademyarController@export')->name('export');
+    //insert personal information
+    Route::post('/promotion', 'KhademController@create')->name('promotion');
+    
     Route::get('addperson', 'KhademyarController@add')->name('person');
     Route::get('insert', 'KhademyarController@create')->name('insert');
+    Route::post('/Importkhademyar', 'KhademyarController@Importkhademyar')->name('Importkhademyar');
     Route::post('sendpersons', 'KhademyarController@store')->name('sendpersons');
     // کنترلر کمیسیون
     Route::get('/comision', 'ComisionController@index')->name('comision');
+    Route::get('/issuanceOrders', 'ComisionController@issuanceOrders')->name('issuanceOrders');
     Route::put('/comision/{id}', 'ComisionController@create');
     Route::get('/comisions/all', 'ComisionController@show');
     Route::post('/comision/{id}/sabt', 'ComisionController@store');
@@ -80,8 +88,10 @@ Route::middleware(['auth', 'auth.admin'])->group(function () {
     //بایگانی
     Route::get('/bayegani', 'ComisionController@bayegani')->name('bayegani');
 
-    Route::group(['prefix' => 'admin'], function () {
-        Route::resource('duty', 'DutyController');
+    Route::put('/bayegan/delete/{id}', 'ComisionController@destroy');
+    
+    Route::resource('duty', 'DutyController');
+    Route::group(['prefix' => 'ada'], function () {
         Route::resource('roles', 'RoleController');
         Route::resource('permissions', 'PermissionController');
         Route::resource('users', 'user\UserController');
@@ -92,8 +102,8 @@ Route::middleware(['auth', 'auth.admin'])->group(function () {
     /**
      * route admin for excel
      */
-    Route::get('/importexcel', 'KhademyarController@importexl')->name('importexcel');
-    Route::post('/import', 'KhademyarController@saveImport')->name('import');
+    Route::get('/importexcel', 'KhademController@importexl')->name('importexcel');
+    Route::post('/saveImport', 'KhademController@saveImport')->name('saveImport');
     Route::delete('/delete/{id}', 'AzmoonController@destroy');
     Route::put('/delmoarefi/{id}', 'KhademyarController@destroy');
     Route::get('/moarefi/store/{id}', 'KhademyarController@edit');

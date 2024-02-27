@@ -27,7 +27,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="background-color: bisque;">
                         <tbody>
                             <tr>
                                 <th>نام بخش</th>

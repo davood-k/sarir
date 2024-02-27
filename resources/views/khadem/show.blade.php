@@ -12,79 +12,179 @@
         {{-- @include('admin.layouts.errors') --}}
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">فرم نمایش کاربر</h3>
+                <h3 class="card-title">فرم نمایش اطلاعات کاربر</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form class="form-horizontal" method="Get" action="{{ url('/person/create', $khadem->id) }}">
+            {{-- <form class="form-horizontal" > --}}
 
-                <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-3">
-                                <label class="control-label d-flex">نام: {{ $khadem->namesr }}</label>
-                                <label class="control-label d-flex">نام خانوادگی: {{ $khadem->familysr }}</label>
-                                <label class="control-label d-flex">کدملی: {{ $khadem->codemsr }}</label>
-                                <label class="control-label d-flex">محل خدمت: {{ $khadem->bkhademyarsr }}</label>
-                                <label class="control-label d-flex">مدرک تحصیلی: {{ $khadem->madraksr }}</label>
-                                <label class="control-label d-flex">تاریخ تولد: {{ $khadem->tdatesr }}</label>
+            <div class="card-body">
+                <div class="form-group">
 
-                            </div>
-                            <div class="col-3">
-                                <label class="control-label d-flex">تاریخ شروع خدمت: {{ $khadem->dateshsr }}</label>
-                                <label class="control-label d-flex">شماره همراه: {{ $khadem->mobilesr }}</label>
-                                <label class="control-label d-flex">توضیحات: {{ $khadem->descriptionsr }}</label>
-                            </div>
-                            <div class="col-6">
-                                <img class="m-auto rounded-circle shadow-4-strong" src="/dist/img/avatar5.png"
-                                    alt="">
-                            </div>
+                    <div class="row d-flex">
+                        <div class="col-4 mt-3 d-flex">
+                            <label class="control-label m-auto">نام: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="col-7 form-control saveData border-0 namesr" value="{{ $khadem->namesr }}" readonly
+                                ondblclick="setFieldStatus(this, false)">
+                        </div>
+                        <div class="col-4 mt-3 d-flex">
+                            <label class="control-label m-auto">نام خانوادگی: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="mr-2 col-7 form-control saveData border-0 familysr" value="{{ $khadem->familysr }}"
+                                readonly ondblclick="setFieldStatus(this, false)">
+                        </div>
+                        <div class="col-4 mt-3 d-flex">
+                            <label class="control-label m-auto">کدملی: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="fontsbLotussmes mr-2 col-7 form-control saveData border-0 codemsr"
+                                value="{{ $khadem->codemsr }}" readonly ondblclick="setFieldStatus(this, false)">
+                        </div>
+                        <div class="col-4 mt-3 d-flex">
+                            <label class="control-label m-auto">محل خدمت: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="mr-2 col-7 form-control saveData border-0 bkhademyarsr"
+                                value="{{ $khadem->bkhademyarsr }}" readonly ondblclick="setFieldStatus(this, false)">
+                        </div>
+                        <div class="col-4 mt-3 d-flex">
+                            <label class="control-label m-auto">مدرک تحصیلی: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="mr-2 col-7 form-control saveData border-0 madraksr" value="{{ $khadem->madraksr }}"
+                                readonly ondblclick="setFieldStatus(this, false)">
+                        </div>
+                        <div class="mt-3 d-flex">
+                            <label class="control-label m-auto">تاریخ تولد: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="fontsbLotussmes mr-2 col-7 form-control saveData border-0 tdatesr"
+                                value="{{ $khadem->tdatesr }}" readonly ondblclick="setFieldStatus(this, false)">
+                        </div>
 
-
-                            {{--                         
-                        for enter page
-                        https://mdbootstrap.com/previews/docs/latest/html/intros/intro-register-classic-form.html
-                        --}}
-
+                    </div>
+                    <div class="row d-flex">
+                        <div class="mt-3 d-flex">
+                            <label class="control-label m-auto">تاریخ شروع خدمت: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="fontsbLotussmes mr-2 col-7 form-control saveData border-0 dateshsr"
+                                value="{{ $khadem->dateshsr }}" readonly ondblclick="setFieldStatus(this, false)">
+                        </div>
+                        <div class="mt-3 d-flex">
+                            <label class="control-label m-auto">شماره همراه: </label>
+                            <input style="background-color: #fff;" type="text"
+                                class="fontsbLotussmes mr-2 col-7 form-control saveData border-0 mobilesr"
+                                value="{{ $khadem->mobilesr }}" readonly ondblclick="setFieldStatus(this, false)">
                         </div>
                     </div>
-                    <hr>
-                    <li class="btn btn-info" style="border-radius: 8px;with: 80px;">نمرات خادمیار</li>
+                    <div class="mt-3 d-flex">
+                        <label style="font-size: 20px;" class="control-label mr-0">توضیحات: </label>
+                        <input style="background-color: #fff;" type="text"
+                            class="fontsbLotussmes mr-2 col-7 text-right form-control saveData border-0 descriptionsr"
+                            value="{{ $khadem->descriptionsr }}" readonly ondblclick="setFieldStatus(this, false)">
+                    </div>
+                </div>
+                <hr>
+                <h3 class="m-4" style="border-radius: 8px;with: 80px;">نمرات خادمیاری</h3>
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-3">
-                                <label class="control-label d-flex">نمره کیفی: {{ $khadem->keifisr }}</label>
-                                <label class="control-label d-flex">نمره سنوات: {{ $khadem->sanvatsr }}</label>
-                                <label class="control-label d-flex">نمره انضباط: {{ $khadem->enzebatsr }}</label>
-                                <label class="control-label d-flex">نمره ایثارگری: {{ $khadem->isarsr }}</label>
-                                <label class="control-label d-flex">نمره تحصیلات: {{ $khadem->tahsilsr }}</label>
-                                <label class="control-label d-flex">نمره نخبه: {{ $khadem->nokhbehsr }}</label>
+                <div class="form-group">
+                    <div class="row d-flex">
+                        <div class="col-3">
+                            <div class="d-flex">
+                                <label class="control-label m-auto">نمره کیفی: </label>
+                                <input style="background-color: #fff;" type="text"
+                                    class="fontsbLotussmes col-3 form-control saveData border-0 keifisr"
+                                    value="{{ $khadem->keifisr }}" readonly ondblclick="setFieldStatus(this, false)">
                             </div>
-                            <div class="col-3">
+                            <div class="d-flex mt-2">
+                                <label class="control-label m-auto">نمره سنوات: </label>
+                                <input style="background-color: #fff;" type="text"
+                                    class="fontsbLotussmes col-3 form-control saveData border-0 sanvatsr"
+                                    value="{{ $khadem->sanvatsr }}" readonly ondblclick="setFieldStatus(this, false)">
                             </div>
-                            <div class="col-6">
-                                <h2 class="p-5 font-italic text-center control-label d-flex text-success bg-success">تجمیع
-                                    نمرات: {{ $khadem->tajmi }}</h2>
+                            <div class="d-flex mt-2">
+                                <label class="control-label m-auto">نمره انضباط: </label>
+                                <input style="background-color: #fff;" type="text"
+                                    class="fontsbLotussmes col-3 form-control saveData border-0 enzebatsr"
+                                    value="{{ $khadem->enzebatsr }}" readonly ondblclick="setFieldStatus(this, false)">
                             </div>
-
-
+                            <div class="d-flex mt-2">
+                                <label class="control-label m-auto">نمره ایثارگری: </label>
+                                <input style="background-color: #fff;" type="text"
+                                    class="fontsbLotussmes col-3 form-control saveData border-0 isarsr"
+                                    value="{{ $khadem->isarsr }}" readonly ondblclick="setFieldStatus(this, false)">
+                            </div>
+                            <div class="d-flex mt-2">
+                                <label class="control-label m-auto">نمره تحصیلات: </label>
+                                <input style="background-color: #fff;" type="text"
+                                    class="fontsbLotussmes col-3 form-control saveData border-0 tahsilsr"
+                                    value="{{ $khadem->tahsilsr }}" readonly ondblclick="setFieldStatus(this, false)">
+                            </div>
+                            <div class="d-flex mt-2">
+                                <label class="control-label m-auto">نمره نخبه: </label>
+                                <input style="background-color: #fff;" type="text"
+                                    class="fontsbLotussmes col-3 form-control saveData border-0 nokhbehsr"
+                                    value="{{ $khadem->nokhbehsr }}" readonly ondblclick="setFieldStatus(this, false)">
+                            </div>
                         </div>
+                        <div class="col-3">
+                        </div>
+                        <div class="col-6">
+                            <label class="control-label mt-2">تجمیع نمرات: </label>
+                            <input style="background-color: rgb(112, 129, 109); color:#fff;" type="text"
+                                class="fontsbLotussmes col-3 form-control saveData border-0 text-center tajmi"
+                                value="{{ $khadem->tajmi }}" readonly ondblclick="setFieldStatus(this, false)">
+                            <?php
+                            $temp = \App\Khadem::find($khadem->id);
+                            ?>
+                            @foreach ($temp->azmoons as $item)
+                                <label class="control-label mt-2">نمره آزمون: </label>
+                                <input style="background-color: rgb(112, 129, 109); color:#fff;" type="text"
+                                    class="fontsbLotussmes col-3 form-control saveData border-0 text-center nomrehAzmoonsr"
+                                    value="{{ $item->nomrehAzmoonsr }}" readonly
+                                    ondblclick="setFieldStatus(this, false)">
+                            @endforeach
+                        </div>
+
+
                     </div>
+                </div>
 
-                    <div class="form-group">
+                <div class="form-group">
 
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-info">ویرایش کاربر</button>
-                        <a href="" class="btn btn-warning float-left">بازگشت</a>
-                    </div>
-                    <!-- /.card-footer -->
-            </form>
-        </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    {{-- <button type="submit" class="btn btn-info">ویرایش کاربر</button> --}}
+                    <a href="{{ URL::previous() }}" class="btn btn-warning float-left">بازگشت</a>
+                </div>
+                <!-- /.card-footer -->
+                {{-- </form> --}}
+            </div>
 
+            <script>
+                function setFieldStatus(item, status) {
+                    $(item).attr('readonly', status);
+                }
 
+                $('.saveData').on('keyup', function(e) {
+                    if (e.key == 'Enter') {
+                        var value = $(this).val();
+                        var className = this.classList[this.classList.length - 1];
+
+                        //send to database
+                        var url = '/persons/' + {{ $khadem->id }} + '/update/' + className + '/' + value;
+
+                        $.get(url, function(result) {
+                            if (result != null) {
+                                alert('تغییرات اعمال گردید.');
+                                setFieldStatus(this, true);
+                            } else {
+                                alert('error');
+                            }
+                        });
+
+                        setFieldStatus(this, true);
+                    }
+                });
+            </script>
 
     </section>
 @endsection

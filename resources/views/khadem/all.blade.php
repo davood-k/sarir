@@ -27,30 +27,42 @@
             <table class="table table-hover">
                 <tbody>
                     <tr>
-                        <th>نام</th>
+                        <th class="text-center">نام</th>
                         <th>نام خانوادگی</th>
                         <th>کدملی</th>
                         <th>محل خدمت</th>
                         <th>شروع خدمت</th>
-                        <th>اقدامات</th>
+                        <th>شماره همراه</th>
+                        <th class="text-center">سطح</th>
                     </tr>
                     @foreach ($all as $user)
                         <tr>
-                            <td><a
-                                    class="{{ $user->sherkatDarAzsr == 1 ? 'text-success bg-success' : '' }}">{{ $user->namesr }}</a>
+                            <td>
+                                <a class="btn btn-sm ml-2" href="{{ url('/person/show', $user->id) }}">
+                                    <i class="fa fa-edit fa-edit-square"></i>
+                                </a>
+                                {{-- <a class="btn btn-sm btn-warning ml-2" href="{{ url('/person/edit', $user->id) }}">
+                                    <i class="fa fa-pencil"></i>
+                                </a> --}}
+                                {{ $user->namesr }}
                             </td>
-                            <td><a
-                                    class="{{ $user->sherkatDarAzsr == 1 ? 'text-success bg-success' : '' }}">{{ $user->familysr }}</a>
+                            <td>
+                                {{ $user->familysr }}
                             </td>
-                            <td>{{ $user->codemsr }}</td>
-                            <td>{{ $user->bkhademyarsr }}</td>
-                            <td>{{ $user->dateshsr }}</td>
+                            <td>
+                                {{ $user->codemsr }}
+                            </td>
+                            <td>
+                                {{ $user->bkhademyarsr }}
+                            </td>
+                            <td>
+                                {{ $user->dateshsr }}
+                            </td>
+                            <td>
+                                {{ $user->mobilesr }}
+                            </td>
                             <td class="d-flex">
 
-                                <a class="btn btn-sm btn-info ml-2" href="{{ url('/person/show', $user->id) }}">مشاهده
-                                    جزئیات</a>
-                                <a class="btn btn-sm btn-warning ml-2" href="{{ url('/person/create', $user->id) }}">ویرایش
-                                    خادمیار</a>
                                 {{-- <form action="delete/{{$user->id}}" method="post">
                             @csrf
                             @method('DELETE')
@@ -59,8 +71,29 @@
                            </button>
                        </form> --}}
 
-                                @if ($user->sherkatDarAzsr == 1)
-                                    <a class="btn btn-sm btn-danger">در مرحله آزمون</a>
+                                @if ($user->bayeganisr == 2)
+                                    <a href="/bayegani" style="border: 1px solid rgb(255, 14, 14);"
+                                        class="btn btn-sm bg-secondery">بایگانی شده</a>
+                                @elseif ($user->ShDarComision == 1)
+                                    <a href="comision" style="border: 1px solid rgb(62, 170, 29);"
+                                        class="btn btn-sm bg-secondery">مرحله
+                                        کمیسیون </a>
+                                @elseif ($user->sherkatDarAzsr == 2)
+                                    <a href="/taeedeazmoon" style="border: 1px solid rgb(184, 106, 62);"
+                                        class="btn btn-sm bg-secondery">مرحله
+                                        تائید
+                                        آزمون
+                                    </a>
+                                @elseif ( $user->sherkatDarAzsr == 3)
+                                    <a href="/readyInvitation" style="border: 1px solid rgb(184, 106, 62);"
+                                        class="btn btn-sm bg-secondery">مرحله
+                                        مدعوین
+                                    </a>
+                                @elseif ($user->sherkatDarAzsr == 1)
+                                    <a href="/azmoon" style="border: 1px solid rgb(74, 62, 184);"
+                                        class="btn btn-sm bg-secondery">
+                                        مرحله آزمون
+                                    </a>
                                 @endif
                             </td>
                         </tr>

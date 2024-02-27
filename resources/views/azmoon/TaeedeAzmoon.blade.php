@@ -9,7 +9,10 @@
 
                 <form action="">
 
-                    <div class="input-group input-group-sm" style="width: 150px;">
+                    <div class="input-group input-group-sm" style="width: 200px;">
+                        <a href="/taeedeazmoon" class="btn btn-default btn-default-sm ml-2">
+                            <i class="fa fa-refresh" area-hidden= "true"></i>
+                        </a>
                         <input type="text" id="search" name="search" class="form-control float-right"
                             placeholder="جستجو" value="{{ request('search') }}">
 
@@ -45,55 +48,53 @@
                             $temp = \App\Khadem::find($user->id);
                             ?>
                             @foreach ($khadem = $temp->azmoons as $item)
-                                    <td><button type="button" class="btn btn-sm btn-info mt-2">{{ $item->nomrehAzmoonsr }}</button></td>
+                                <td><button type="button"
+                                        class="btn btn-sm btn-info mt-2">{{ $item->nomrehAzmoonsr }}</button></td>
                             @endforeach
-                            
+
                             <td class="d-flex">
 
-                                <form method="post" action="comision/{{ $user->id }}">
+                                <form method="post" action="azmoonready/{{ $user->id }}">
                                     @csrf
                                     @method('put')
-                                    <input type="hidden" class="form-control w-25 m-auto" name="ShDarComision"
-                                        id="ShDarComision" value="1">
-                                    <input type="hidden" class="form-control w-25 m-auto" name="dalil" id="dalil"
-                                        value="قبولی در آزمون">
-                                    <button class="btn btn-sm btn-warning mr-2">انتقال به کمیسیون</button>
+                                    <button class="btn btn-sm btn-warning mr-2">انتقال به مدعوین</button>
                                 </form>
+                                @can('bayegani')
                                 <a class="btn btn-sm btn-danger mr-2" data-toggle="modal"
-                                data-target=".myModal-{{ $user->user_id }}">بایگانی</a>
+                                    data-target=".myModal-{{ $user->user_id }}">بایگانی</a>
 
-                            <!-- Modal -->
-                            <div class="modal fade mt-5 myModal-{{ $user->user_id }}" role="dialog">
-                                <div class="modal-dialog">
+                                <!-- Modal -->
+                                <div class="modal fade mt-5 myModal-{{ $user->user_id }}" role="dialog">
+                                    <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close"
-                                                data-dismiss="modal">&times;</button>
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <form method="post" action='{{ url('/person/edit', $user->id) }}'>
+                                                @csrf
+                                                <div class="mb-3">
+
+                                                    <p class="m-3">آیا از بایگانی فرد مطمئن هستید</p>
+                                                    <input type="hidden" class="form-control w-50" name="bayegan"
+                                                        id="bayegan" value="1">
+                                                    <select class="form-control" id="dalil" name="dalil">
+                                                        <option value="عدم کسب نمره لازم">عدم کسب نمره لازم</option>
+                                                        <option value="انصراف">انصراف</option>
+                                                        <option value="ابقاء">ابقاء</option>
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">بله</button>
+                                                </div>
+                                            </form>
+
                                         </div>
-                                        <form method="post" action='{{ url('/person/edit', $user->id) }}'>
-                                            @csrf
-                                            <div class="mb-3">
-
-                                                <p class="m-3">آیا از بایگانی فرد مطمئن هستید</p>
-                                                <input type="hidden" class="form-control w-50" name="bayegan"
-                                                    id="bayegan" value="1">
-                                                <select class="form-control" id="dalil" name="dalil">
-                                                    <option value="عدم کسب نمره لازم">عدم کسب نمره لازم</option>
-                                                    <option value="انصراف">انصراف</option>
-                                                    <option value="ابقاء">ابقاء</option>
-                                                </select>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">بله</button>
-                                            </div>
-                                        </form>
 
                                     </div>
-
                                 </div>
-                            </div>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

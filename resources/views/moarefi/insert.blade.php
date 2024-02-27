@@ -1,13 +1,10 @@
 @extends('welcome')
 
 @section('mohtava')
-    <form class="m-3" action="{{ route('import') }}" method="post" enctype="multipart/form-data">
+    <form class="m-5" action="{{ route('Importkhademyar') }}" method="post" enctype="multipart/form-data">
         @csrf
-
         <input class="btn btn-danger" type="file" name="file" class="form-control">
-
         <input class="btn btn-info" type="submit" value="upload" name="submit">
-
     </form>
     <div class="row col-12 m-2">
         @include('admin.layouts.errors')
@@ -19,7 +16,8 @@
 
             <div class="col-3 mr-3">
                 <div class="form-group d-flex">
-                    <input name="codemelli" type="text" class="form-control form-control-sm " placeholder="شماره ملی">
+                    <input name="codemelli" type="text" class="form-control form-control-sm " placeholder="شماره ملی"
+                        value="{{ old('codemelli') }}">
                     <label for="codemelli" class="mr-2 input-required" style="width : 40px">*</label>
                 </div>
             </div>
@@ -87,19 +85,19 @@
 
 
         </div>
-        {{-- <div class="row mt-3">
+
+        {{-- <div class="row m-3">
             <input class="form-control form-control-sm w-75" name="molahezat" type="text"
                 placeholder="در صورت تمایل ملاحظات را یادداشت فرمائید">
         </div> --}}
+
         <div class="row m-3">
-            <input class="form-control form-control-sm w-75" name="tozih" type="text"
-                placeholder="در صورت تمایل توضیحات را یادداشت فرمائید">
+            <input class="form-control form-control-lg w-50" name="tozih" type="text"
+                placeholder="در صورت نیاز درج دستور نامه">
         </div>
-        <button type="submit" class="btn btn-primary m-3">تائید</button>
+        <button type="submit" class="btn btn-primary m-3">ثبت</button>
+        <a href="/" class="btn btn-info">مشاهده لیست معرفی ها</a>
     </form>
-
-
-
 
     <script type="text/javascript">
         var data = {
@@ -116,10 +114,12 @@
                         "تشریفات آئین ها و مناسبت ها",
                         "زلال رضوان",
                         "شمیم رضوان",
+                        "صحافی",
                         "کفشداری (میزبان)",
                         "فراشی (میزبان)",
                         "خدام (میزبان)",
                         "دربانی (میزبان)",
+                        "طرح و برنامه",
                     ],
                 },
                 {
@@ -241,6 +241,32 @@
                     moavenat: "بحران",
                     districts: [
                         "بحران و پدافند عامل",
+                    ],
+                },
+                {
+                    moavenat: "علمی",
+                    districts: [
+                        "خادمیاران علمی",
+                        "ستادی سازمان علمی و فرهنگی",
+                    ],
+                },
+                {
+                    moavenat: "آموزش",
+                    districts: [
+                        "آموزش",
+                    ],
+                },
+                {
+                    moavenat: "سازمان فرهنگی",
+                    districts: [
+                        "کتابخانه",
+                        "مرکز قرآن",
+                    ],
+                },
+                {
+                    moavenat: "عدم معرفی تا دریافت نامه",
+                    districts: [
+                        "عدم معرفی تا دریافت نامه",
                     ],
                 },
             ],

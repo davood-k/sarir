@@ -76,10 +76,10 @@
 
 @font-face {
     font-family: BLotus;
-    src: url('../fonts/B-Lotus-Bold.ttf') format('truetype');
-    /*src: url('../fonts/BLotus.woff') format('woff');
-    src: url('../fonts/BLotus.woff2') format('woff2');*/
-    font-weight: 900    ;
+    src: url('../fonts/BLotus.ttf') format('truetype');
+    src: url('../fonts/BLotus.woff') format('woff');
+    src: url('../fonts/BLotus.woff2') format('woff2');
+    font-weight: 900;
 }
 
 @font-face {
@@ -91,6 +91,11 @@
 @font-face {
     font-family: BTitrBold;
     src: url('../fonts/titr.ttf') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: BHoma;
+    src: url('../fonts/BHoma.ttf') format('truetype');
     font-weight: normal;
 }
 
@@ -105,7 +110,19 @@ body {
     font-family: 'BLotus' !important;
     font-size: 24px;
 }
+.fontsBHoma {
+    font-family: 'BHoma' !important;
+    font-size: 24px;
+}
 
+.fontsBLotussm {
+    font-family: 'BLotus' !important;
+    font-size: 16px;
+}
+.fontsbLotussmes {
+    font-family: 'BLotus' !important;
+    font-size: 20px;
+}
 .fontsBTitr {
     font-family: 'BTitr';
 }
@@ -164,7 +181,6 @@ ul {
 }
 
 .control-sidebar, .control-sidebar:before {
-    left: -250px;
     right: auto;
     transition: left .3s ease-in-out;
 }

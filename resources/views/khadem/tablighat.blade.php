@@ -45,15 +45,15 @@
 
                                 <a class="btn btn-sm btn-info ml-2" href="{{ url('/person/show', $user->id) }}">مشاهده
                                     جزئیات</a>
-                                <a class="btn btn-sm btn-warning ml-2" href="{{ url('/person/create', $user->id) }}">ویرایش
+                                <a class="btn btn-sm btn-warning ml-2" href="{{ url('/person/edit', $user->id) }}">ویرایش
                                     خادمیار</a>
-                                {{-- <form action="delete/{{$user->id}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                           <button class="btn btn-sm btn-danger ml-2" type="submit">
-                               حذف
-                           </button>
-                       </form> --}}
+                                {{-- <form action="delete/{{ $user->id }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger ml-2" type="submit">
+                                        حذف
+                                    </button>
+                                </form> --}}
 
                                 <form method="post" action="azmoon/{{ $user->id }}">
                                     @csrf

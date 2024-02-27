@@ -9,7 +9,10 @@
 
                 <form action="">
 
-                    <div class="input-group input-group-sm" style="width: 150px;">
+                    <div class="input-group input-group-sm ml-3" style="width: 200px;">
+                        <a href="/bayegani" class="btn btn-default btn-default-sm ml-2">
+                            <i class="fa fa-refresh" area-hidden= "true"></i>
+                        </a>
                         <input type="text" id="search" name="search" class="form-control float-right"
                             placeholder="جستجو" value="{{ request('search') }}">
 
@@ -43,7 +46,7 @@
                             <?php
                             $temp = \App\Khadem::find($user->id);
                             ?>
-<th>
+
                             @foreach ($khadem = $temp->azmoons as $item)
                                 @if ($item->nomrehAzmoonsr == 0)
                                     <td><button type="button" class="badge badge-info mt-2">عدم شرکت</button></td>
@@ -53,19 +56,19 @@
                                     <td><button type="button" class="badge badge-danger mt-2">عدم قبولی</button></td>
                                 @endif
                             @endforeach
-                            </th>
-                            <th>
-                                عدم تمایل
-                            </th>
+                            </td>
+                            <td>
+                                اتمام مراحل
+                            </td>
                             <td class="d-flex">
                                 <!-- Trigger the modal with a button -->
 
                                 {{-- امتیاز بیشتر مساوی 70 --}}
 
-                               
-                                <form action="delete/{{ $user->id }}" method="post">
+
+                                <form action="bayegan/delete/{{ $user->id }}" method="post">
                                     @csrf
-                                    @method('DELETE')
+                                    @method('PUT')
                                     <button class="btn btn-sm btn-danger mr-2" type="submit">
                                         حذف
                                     </button>

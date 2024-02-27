@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Azmoon;
 use App\Khadem;
 use App\Comision;
 use App\placeKh;
@@ -20,10 +21,20 @@ class ComisionController extends Controller
         if ($keyword = request('search')) {
             $khadem->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
         }
-
         $list = $khadem->where('ShDarComision', '1')->where('bayeganisr', '0')->get();
         return view('/comision/comision', compact('list'));
     }
+
+    public function issuanceOrders()
+    {
+        $khadem = Khadem::query('search');
+        if ($keyword = request('search')) {
+            $khadem->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
+        }
+        $list = $khadem->where('ShDarComision', '1')->where('bayeganisr', '0')->get();
+        return view('/comision/issuanceOrders', compact('list'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +48,7 @@ class ComisionController extends Controller
             'ShDarComision' => $request->ShDarComision
         ]);
 
-        $khadems->comisions()->create(['khadem_id' => $id]);
+        $khadems->comisions()->firstOrCreate(['khadem_id' => $id]);
         $khadems->azmoons()->update(['dalil' => $request->dalil]);
         return back();
     }
@@ -58,6 +69,7 @@ class ComisionController extends Controller
             $khadem->comisions()->update([
                 'TnMahalKhsr' => $request->TnMahalKhsr,
                 'ShHerasatsr' => $request->ShHerasatsr,
+                'dateInterview' => $request->dateInterview,
                 'TdHerasatsr' => $request->TdHerasatsr == null ? 0 : 1,
                 'ShToliatsr' => $request->ShToliatsr,
                 'TdToliatsr' => $request->TdToliatsr == null ? 0 : 1,
@@ -74,6 +86,24 @@ class ComisionController extends Controller
                 'TnMahalKhsr' => $request->TnMahalKhsr,
                 'documentId' => $lastDocumentIdShoeses,
                 'ShHerasatsr' => $request->ShHerasatsr,
+                'dateInterview' => $request->dateInterview,
+                'TdHerasatsr' => $request->TdHerasatsr == null ? 0 : 1,
+                'ShToliatsr' => $request->ShToliatsr,
+                'TdToliatsr' => $request->TdToliatsr == null ? 0 : 1,
+                'SiMKhodamsr' => $request->SiMKhodamsr == null ? 0 : 1,
+                'SiMSarmayehsr' => $request->SiMSarmayehsr == null ? 0 : 1,
+                'SiMAalesr' => $request->SiMAalesr == null ? 0 : 1,
+                'SiToliatsr' => $request->SiToliatsr == null ? 0 : 1,
+                'ShHokmsr' => $request->ShHokmsr,
+            ]);
+        } elseif ('خادم علمی' === $request->TnMahalKhsr) {
+            $lastDocumentIdShoes = Comision::where('TnMahalKhsr', 'خادم علمی')->orderBy('documentId', 'desc')->value('documentId');
+            $lastDocumentIdShoeses = $lastDocumentIdShoes + '1';
+            $khadem->comisions()->update([
+                'TnMahalKhsr' => $request->TnMahalKhsr,
+                'documentId' => $lastDocumentIdShoeses,
+                'ShHerasatsr' => $request->ShHerasatsr,
+                'dateInterview' => $request->dateInterview,
                 'TdHerasatsr' => $request->TdHerasatsr == null ? 0 : 1,
                 'ShToliatsr' => $request->ShToliatsr,
                 'TdToliatsr' => $request->TdToliatsr == null ? 0 : 1,
@@ -84,12 +114,13 @@ class ComisionController extends Controller
                 'ShHokmsr' => $request->ShHokmsr,
             ]);
         } else {
-            $lastDocumentId = Comision::where('documentId', '!=', $request->TnMahalKhsr)->where('TnMahalKhsr', '!=', 'کفشدار')->orderBy('documentId', 'desc')->value('documentId');
+            $lastDocumentId = Comision::where('documentId', '!=', $request->TnMahalKhsr)->where('TnMahalKhsr', '!=', 'کفشدار')->where('TnMahalKhsr', '!=', 'خادم علمی')->orderBy('documentId', 'desc')->value('documentId');
             $lastDocumentIds = $lastDocumentId + '1';
             $khadem->comisions()->update([
                 'TnMahalKhsr' => $request->TnMahalKhsr,
                 'documentId' => $lastDocumentIds,
                 'ShHerasatsr' => $request->ShHerasatsr,
+                'dateInterview' => $request->dateInterview,
                 'TdHerasatsr' => $request->TdHerasatsr == null ? 0 : 1,
                 'ShToliatsr' => $request->ShToliatsr,
                 'TdToliatsr' => $request->TdToliatsr == null ? 0 : 1,
@@ -132,10 +163,10 @@ class ComisionController extends Controller
     {
         $khadem = Khadem::query('search');
         if ($keyword = request('search')) {
-            $khadem->where('bayeganisr', '2')->orWhere('bayeganisr', '1')->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
+            $khadem->where('bayeganisr', '2')->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
         }
         // bayeganisr
-        $list = $khadem->where('bayeganisr', '1')->orWhere('bayeganisr', '1')->get();
+        $list = $khadem->where('bayeganisr', '2')->get();
         return view('/comision/bayegan', compact('list'));
     }
 
@@ -172,8 +203,19 @@ class ComisionController extends Controller
      * @param  \App\Comision  $comision
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comision $comision)
+    public function destroy(Comision $comision, $id)
     {
-        //
+
+        Khadem::where('id', $id)->update([
+            'bayeganisr' => 0,
+            'sherkatDarAzsr' => 1,
+            'ShDarComision' => 0,
+        ]);
+        $khademAz = Khadem::where('id', $id)->first();
+        $khademAz->azmoons()->update([
+                'nomrehAzmoonsr' => 0,
+            ]);
+
+        return back();
     }
 }

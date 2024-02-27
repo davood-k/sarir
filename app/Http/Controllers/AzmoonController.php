@@ -40,6 +40,26 @@ class AzmoonController extends Controller
         return view('/azmoon/TaeedeAzmoon', compact('khadem'));
     }
 
+    public function ready(Request $request, $id)
+    {
+        $khadems = Khadem::find($id);
+        $khadems->where('id', $id)->update([
+            'sherkatDarAzsr' => '3',
+        ]);
+
+        return back();
+    }
+    public function readyInvitation()
+    {
+        $list = Khadem::query('search');
+        if ($keyword = request('search')) {
+            $list->where('ShDarComision', '0')->where('sherkatDarAzsr', '3')->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
+        }
+        $khadem = $list->where('sherkatDarAzsr', '3')->where('ShDarComision', '0')->where('bayeganisr', '0')->get();
+
+        return view('/azmoon/readyInvitation', compact('khadem'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,7 +68,7 @@ class AzmoonController extends Controller
     public function create($id)
     {
         $khadem = Khadem::find($id);
-        $khadem->azmoons()->create(['khadem_id' => $id]);
+        $khadem->azmoons()->firstOrCreate(['khadem_id' => $id]);
         $khadem->update([$khadem->sherkatDarAzsr = 1]);
 
         return back();
@@ -63,23 +83,35 @@ class AzmoonController extends Controller
      */
     public function store(Khadem $Khadem, Request $request, $id)
     {
+
         $date = Khadem::where('id', $id)->value('marhalesr');
         $khadem = Khadem::find($id);
-        if ($request->nomrehAz >= 70) {
+
+        if ($request->nomrehAz == null) {
+
+            $khadem->azmoons()->where('khadem_id', $id)->update([
+                'job' => $request->job
+            ]);
+
+        } elseif ($request->nomrehAz >= 70) {
+
             $khadem->azmoons()->where('khadem_id', $id)->update([
                 'nomrehAzmoonsr' => $request->nomrehAz,
                 'job' => $request->job
             ]);
             Khadem::where('id', $id)->update([
                 'sherkatDarAzsr' => '2',
+                'marhalesr' => $date + 1
             ]);
-        } else {
+
+        } elseif ($request->nomrehAz < 70 && $request->nomrehAz > 0) {
+
             $khadem->azmoons()->where('khadem_id', $id)->update([
                 'nomrehAzmoonsr' => $request->nomrehAz,
                 'job' => $request->job
             ]);
-        }
 
+        }
         Khadem::where('id', $id)->update([
             'marhalesr' => $date + 1
         ]);
@@ -110,9 +142,9 @@ class AzmoonController extends Controller
     {
         $list = Khadem::query('search');
         if ($keyword = request('search')) {
-            $list->where('ShDarComision', '0')->where('sherkatDarAzsr', '2')->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
+            $list->where('ShDarComision', '0')->where('sherkatDarAzsr', '3')->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
         }
-        $khadem = $list->where('sherkatDarAzsr', '2')->where('ShDarComision', '0')->where('bayeganisr', '0')->get();
+        $khadem = $list->orderBy('tajmi', 'desc')->where('sherkatDarAzsr', '3')->where('ShDarComision', '0')->where('bayeganisr', '0')->get();
 
         return view('/azmoon/PrintAzmoon', compact('khadem'));
     }
@@ -121,9 +153,9 @@ class AzmoonController extends Controller
     {
         $list = Khadem::query('search');
         if ($keyword = request('search')) {
-            $list->where('ShDarComision', '0')->where('sherkatDarAzsr', '2')->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
+            $list->where('ShDarComision', '0')->where('sherkatDarAzsr', '3')->where('codemsr', 'like', "%$keyword%")->orWhere('namesr', 'like', "%$keyword%")->orWhere('familysr', 'like', "%$keyword%");
         }
-        $khadem = $list->where('sherkatDarAzsr', '2')->where('ShDarComision', '0')->where('bayeganisr', '0')->get();
+        $khadem = $list->orderBy('tajmi', 'desc')->where('sherkatDarAzsr', '3')->where('ShDarComision', '0')->where('bayeganisr', '0')->get();
 
         return view('/azmoon/infolderpr', compact('khadem'));
     }
